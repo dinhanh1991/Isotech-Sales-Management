@@ -1,23 +1,22 @@
+
 /*
-PROJECT: Isotech Sale Mângement
-DATA BASE: IsotechSaleDB
-FILE: 02_CreateTables.sql
-PURPOSE: Create the 6 core and extended tables.
-
-
+    PROJECT: Isotech Sales Management
+    DATABASE: IsotechSalesDB
+    FILE: 02_CreateTables.sql
+    PURPOSE: Create 6 tables for sales management.
 */
-USE IsotechSaleDB;
-GO
+
 USE IsotechSalesDB;
 GO
+
 /*==============================================================
   1. CUSTOMERS - Customer information
 ==============================================================*/
-IF OBJECT_ID(N'dbo.CUSTOMERS', N'U') IS NOT NULL
+IF OBJECT_ID(N'dbo.Customers', N'U') IS NULL
 BEGIN
-    CREATE TABLE dbo.CUSTOMERS
+    CREATE TABLE dbo.Customers
     (
-         CustomerID INT IDENTITY(1,1) NOT NULL,
+        CustomerID INT IDENTITY(1,1) NOT NULL,
         FullName NVARCHAR(100) NOT NULL,
         Address NVARCHAR(255) NULL,
         Email VARCHAR(100) NULL,
@@ -26,16 +25,17 @@ BEGIN
         CONSTRAINT PK_Customers
             PRIMARY KEY (CustomerID)
     );
-END
+END;
 GO
+
 /*==============================================================
   2. CATEGORIES - Product categories
 ==============================================================*/
-IF OBJECT_ID(N'dbo.CATEGORIES', N'U') IS NOT NULL
+IF OBJECT_ID(N'dbo.Categories', N'U') IS NULL
 BEGIN
-    CREATE TABLE dbo.CATEGORIES
+    CREATE TABLE dbo.Categories
     (
-         CategoryID INT IDENTITY(1,1) NOT NULL,
+        CategoryID INT IDENTITY(1,1) NOT NULL,
         CategoryName NVARCHAR(100) NOT NULL,
         Description NVARCHAR(255) NULL,
 
@@ -45,44 +45,47 @@ BEGIN
         CONSTRAINT UQ_Categories_CategoryName
             UNIQUE (CategoryName)
     );
-END
+END;
 GO
+
 /*==============================================================
   3. EMPLOYEES - Employee information
 ==============================================================*/
-IF OBJECT_ID(N'dbo.EMPLOYEES', N'U') IS NOT NULL
+IF OBJECT_ID(N'dbo.Employees', N'U') IS NULL
 BEGIN
-    CREATE TABLE dbo.EMPLOYEES
+    CREATE TABLE dbo.Employees
     (
-            EmployeeID INT IDENTITY(1,1) NOT NULL,
-            FullName NVARCHAR(100) NOT NULL,
-            Position NVARCHAR(50) NULL,
-            Phone VARCHAR(15) NULL,
-            Email VARCHAR(100) NULL,
+        EmployeeID INT IDENTITY(1,1) NOT NULL,
+        FullName NVARCHAR(100) NOT NULL,
+        Position NVARCHAR(50) NOT NULL,
+        Phone VARCHAR(15) NULL,
+        Email VARCHAR(100) NOT NULL,
 
-            constraint PK_Employees
-                PRIMARY KEY (EmployeeID),
-            constraint UQ_Employees_Email
-                UNIQUE (Email)
+        CONSTRAINT PK_Employees
+            PRIMARY KEY (EmployeeID),
+
+        CONSTRAINT UQ_Employees_Email
+            UNIQUE (Email)
     );
 END;
 GO
-/*============================================================== 
-    4. PRODUCTS - Product information and inventory
-==============================================================*/
-if OBJECT_ID(N'dbo.PRODUCTS', N'U') IS NOT NULL
-BEGIN
 
-    CREATE TABLE dbo.PRODUCTS
+/*==============================================================
+  4. PRODUCTS - Product information and inventory
+==============================================================*/
+IF OBJECT_ID(N'dbo.Products', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.Products
     (
         ProductID INT IDENTITY(1,1) NOT NULL,
         ProductName NVARCHAR(150) NOT NULL,
         CategoryID INT NOT NULL,
-        UnitPrice DECIMAL(18, 2) NOT NULL,
+        UnitPrice DECIMAL(18,2) NOT NULL,
         Description NVARCHAR(500) NULL,
-        StockQuantity INT NOT NULL,
+        StockQuantity INT NOT NULL
+            CONSTRAINT DF_Products_StockQuantity DEFAULT (0),
 
-         CONSTRAINT PK_Products
+        CONSTRAINT PK_Products
             PRIMARY KEY (ProductID),
 
         CONSTRAINT FK_Products_Categories
@@ -96,7 +99,7 @@ BEGIN
             CHECK (StockQuantity >= 0)
     );
 END;
-Go
+GO
 
 /*==============================================================
   5. ORDERS - Sales orders
@@ -106,8 +109,10 @@ BEGIN
     CREATE TABLE dbo.Orders
     (
         OrderID INT IDENTITY(1,1) NOT NULL,
+
         OrderDate DATETIME2(0) NOT NULL
-            CONSTRAINT DF_Orders_OrderDate DEFAULT (SYSDATETIME()),
+            CONSTRAINT DF_Orders_OrderDate
+            DEFAULT (SYSDATETIME()),
 
         CustomerID INT NOT NULL,
         EmployeeID INT NOT NULL,
@@ -140,7 +145,7 @@ END;
 GO
 
 /*==============================================================
-  6. ORDERDETAILS - Products belonging to each order
+  6. ORDERDETAILS - Order line items
 ==============================================================*/
 IF OBJECT_ID(N'dbo.OrderDetails', N'U') IS NULL
 BEGIN
@@ -172,15 +177,13 @@ END;
 GO
 
 /*==============================================================
-  7. VERIFICATION - Display created tables
+  7. VERIFICATION - List created tables
 ==============================================================*/
 SELECT
     TABLE_SCHEMA,
     TABLE_NAME
 FROM INFORMATION_SCHEMA.TABLES
 WHERE TABLE_TYPE = 'BASE TABLE'
+  AND TABLE_SCHEMA = 'dbo'
 ORDER BY TABLE_NAME;
-GO
-
-PRINT N'Table creation script completed.';
 GO
