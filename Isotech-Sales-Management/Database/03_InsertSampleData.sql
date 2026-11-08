@@ -55,15 +55,6 @@ VALUES
 GO
 
 /*==============================================================
-  5. VERIFY - Check inserted data
-==============================================================*/
-SELECT * FROM dbo.Categories;
-SELECT * FROM dbo.Employees;
-SELECT * FROM dbo.Customers;
-SELECT * FROM dbo.Products;
-GO
-
-/*==============================================================
   6. ORDERS - Sales orders
 ==============================================================*/
 INSERT INTO dbo.Orders
@@ -112,9 +103,12 @@ JOIN
 GO
 
 /*==============================================================
-  9. VERIFY ORDER DATA
+  9. VERIFY - Display all inserted tables
 ==============================================================*/
+SELECT * FROM dbo.Categories ORDER BY CategoryID;
+SELECT * FROM dbo.Employees ORDER BY EmployeeID;
+SELECT * FROM dbo.Customers ORDER BY CustomerID;
+SELECT * FROM dbo.Products ORDER BY ProductID;
 SELECT * FROM dbo.Orders ORDER BY OrderID;
-
 SELECT * FROM dbo.OrderDetails ORDER BY OrderID, ProductID;
 GO
