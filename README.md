@@ -100,33 +100,44 @@ Các bảng được liên kết bằng Primary Key và Foreign Key nhằm đả
 - `sp_GetRevenueByDateRange`: Thống kê doanh thu theo khoảng thời gian.
 - `sp_GetBestSellingProducts`: Thống kê 5 sản phẩm bán chạy nhất.
 
-### 6. Cấu trúc thư mục dự án
+### 6. Cấu trúc repository trên GitLab
 
 ```text
-Isotech-Sales-Management/
-│
-├── README.md
+Repository/
 ├── .gitignore
-│
-├── Database/
-│   ├── 01_CreateDatabase.sql
-│   ├── 02_CreateTables.sql
-│   ├── 03_InsertSampleData.sql
-│   ├── 04_CRUD.sql
-│   ├── 05_AdvancedQueries.sql
-│   ├── 06_Views.sql
-│   ├── 07_Indexes.sql
-│   ├── 08_StoredProcedures.sql
-│   └── 09_Testing.sql
-│
-├── Design/
-│   └── ERD.png
-│
-├── Report/
-│
-└── Images/
-    └── Testing/
+├── Isotech-Sales-Management/
+│   ├── Database/
+│   │   ├── 01_CreateDatabase.sql
+│   │   ├── 02_CreateTables.sql
+│   │   ├── 03_InsertSampleData.sql
+│   │   ├── 04_CRUD.sql
+│   │   ├── 05_AdvancedQueries.sql
+│   │   ├── 06_Views.sql
+│   │   ├── 07_Indexes.sql
+│   │   ├── 08_StoredProcedures.sql
+│   │   └── 09_Testing.sql
+│   └── Design/
+│       └── erd_isotech_sales.png
+├── README.md
+└── report/
+    └── FIT4008-D.0379101001.LEDINHANH.D0525HNCNA4.docx
 ```
+
+| Thành phần | Vai trò |
+|---|---|
+| `.gitignore` | Khai báo các tệp Git bỏ qua; hiện chưa có quy tắc. |
+| `Database/01_CreateDatabase.sql` | Tạo và chọn database `IsotechSalesDB`. |
+| `Database/02_CreateTables.sql` | Tạo 6 bảng cùng khóa và các ràng buộc dữ liệu. |
+| `Database/03_InsertSampleData.sql` | Thêm dữ liệu mẫu vào các bảng. |
+| `Database/04_CRUD.sql` | Minh họa các thao tác thêm, đọc, cập nhật và xóa dữ liệu. |
+| `Database/05_AdvancedQueries.sql` | Truy vấn kết hợp và thống kê dữ liệu. |
+| `Database/06_Views.sql` | Tạo 3 View phục vụ tra cứu và báo cáo. |
+| `Database/07_Indexes.sql` | Tạo 2 Index hỗ trợ các truy vấn phù hợp. |
+| `Database/08_StoredProcedures.sql` | Tạo 3 Stored Procedure cho nghiệp vụ và báo cáo. |
+| `Database/09_Testing.sql` | Kiểm tra cấu trúc, dữ liệu, đối tượng và ràng buộc. |
+| `Design/erd_isotech_sales.png` | Sơ đồ ERD thể hiện các bảng và mối quan hệ. |
+| `README.md` | Giới thiệu dự án, cấu trúc repository và hướng dẫn sử dụng. |
+| `report/FIT4008-D.0379101001.LEDINHANH.D0525HNCNA4.docx` | Báo cáo phân tích, thiết kế, triển khai và kiểm thử dự án. |
 
 ### 7. Kết quả kiểm thử
 
@@ -172,7 +183,7 @@ Dự án đã thực hiện kiểm thử trên Microsoft SQL Server.
 5. Thực thi lần lượt các file SQL theo thứ tự từ `01` đến `09`.
 6. Kiểm tra kết quả thực thi và dữ liệu trong database `IsotechSalesDB`.
 
-**Lưu ý:** Nếu database đã tồn tại và đã có dữ liệu, cần kiểm tra nội dung từng script trước khi thực thi lại để tránh tạo dữ liệu trùng lặp.
+**Lưu ý:** Một số script tạo bảng, View và Stored Procedure có thể chạy lại theo điều kiện trong mã nguồn. `03_InsertSampleData.sql` thêm dữ liệu mẫu trực tiếp; không chạy lặp lại trên cùng database nếu chưa kiểm tra dữ liệu để tránh bản ghi trùng hoặc vi phạm ràng buộc UNIQUE.
 
 ### 9. Kết luận
 
