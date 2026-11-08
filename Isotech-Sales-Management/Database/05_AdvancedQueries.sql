@@ -57,7 +57,7 @@ GROUP BY
     c.CustomerID,
     c.fullName
 HAVING
-    count(o.OrderID) > 5
+    count(o.OrderID)>=1
 GO
 /*==============================================================
 4. REVENUE - Monthly revenue by year

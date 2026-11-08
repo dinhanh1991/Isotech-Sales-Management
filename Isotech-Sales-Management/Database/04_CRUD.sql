@@ -31,18 +31,18 @@ GO
 UPDATE dbo.Customers
 SET Address = N'Hà Nội - Việt Nam',
     Phone = '0912999999'
-WHERE CustomerID = 6;
+WHERE CustomerID = 1019;
 GO
 
 -- Check updated information
 SELECT *
 FROM dbo.Customers
-WHERE CustomerID = 6;
+WHERE CustomerID = 1019;
 GO
 
 -- 1.4. DELETE: Delete the test customer
 DELETE FROM dbo.Customers
-WHERE CustomerID = 6;
+WHERE CustomerID =6;
 GO
 
 /*==============================================================
